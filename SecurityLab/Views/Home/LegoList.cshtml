@@ -1,0 +1,26 @@
+﻿
+@model ProductsListViewModel
+<h1>Legos, get'em while they're hot</h1>
+
+
+<br />
+<div class="row m-1 p-1">
+    <div class="col-3">
+        <h4>Filter by Category</h4>
+        <vc:project-types />
+    </div>
+    <div class="container col-9">
+        <main role="main" class="pb-3">
+            @foreach (Product b in Model.Products)
+            {
+                <partial name="ProjectSummary" model="b" />
+
+
+            }
+            <div page-model="@Model.PaginationInfo" page-action="LegoList" page-class-enabled="true" page-class="btn"
+             page-class-normal="btn-outline-dark" page-class-selected="btn-primary" page-url-legoType="@Model.CurrentProductType" class="btn-group pull-right m-1"></div>
+        </main>
+    </div>
+</div>
+
+

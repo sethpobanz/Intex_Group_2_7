@@ -31,6 +31,8 @@ public partial class PobanzTestDbContext : DbContext
     {
         modelBuilder.Entity<Customer>(entity =>
         {
+            entity.HasKey(e => e.CustomerId).HasName("customer_ID");
+
             entity.Property(e => e.CustomerId)
                 .ValueGeneratedNever()
                 .HasColumnName("customer_ID");
@@ -52,17 +54,27 @@ public partial class PobanzTestDbContext : DbContext
 
         modelBuilder.Entity<LineItem>(entity =>
         {
-            entity.HasKey(e => new { e.TransactionId, e.ProductId });
+            entity.HasNoKey();
 
-            entity.Property(e => e.TransactionId).HasColumnName("transaction_ID");
             entity.Property(e => e.ProductId).HasColumnName("product_ID");
             entity.Property(e => e.Qty).HasColumnName("qty");
             entity.Property(e => e.Rating).HasColumnName("rating");
+            entity.Property(e => e.TransactionId).HasColumnName("transaction_ID");
+
+            entity.HasOne(d => d.Product).WithMany()
+                .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Products_LineItems");
+
+            entity.HasOne(d => d.Transaction).WithMany()
+                .HasForeignKey(d => d.TransactionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Orders_LineItems");
         });
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.TransactionId);
+            entity.HasKey(e => e.TransactionId).HasName("transaction_ID");
 
             entity.Property(e => e.TransactionId)
                 .ValueGeneratedNever()
@@ -93,11 +105,20 @@ public partial class PobanzTestDbContext : DbContext
             entity.Property(e => e.TypeOfTransaction)
                 .HasMaxLength(50)
                 .HasColumnName("type_of_transaction");
+
+            entity.HasOne(d => d.Customer).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.CustomerId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Orders_Customers");
         });
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.Property(e => e.ProductId).HasColumnName("product_ID");
+            entity.HasKey(e => e.ProductId).HasName("product_ID");
+
+            entity.Property(e => e.ProductId)
+                .ValueGeneratedNever()
+                .HasColumnName("product_ID");
             entity.Property(e => e.Category1)
                 .HasMaxLength(50)
                 .HasColumnName("category1");

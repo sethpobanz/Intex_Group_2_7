@@ -61,4 +61,9 @@ app.MapRazorPages();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapControllerRoute("pagenumandtype", "{legoType}/Page{pageNum}", new { Controller = "Home", Action = "Index" });
+app.MapControllerRoute("page", "Page/{pageNum}", new { Controller = "Home", Action = "Index", pageNum = 1 });
+app.MapControllerRoute("bookType", "{legoType}", new { Controller = "Home", Action = "Index", pageNum = 1 });
+app.MapControllerRoute("pagination", "Legos/Page{pageNum}", new { Controller = "Home", Action = "Index", pageNum = 1 });
+
 app.Run();

@@ -1,0 +1,24 @@
+﻿@using SecurityLab.Infrastructure
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Product
+<div class="card m-1 p-1">
+    <h4>
+        @Model.Name
+        <span class="badge rounded-pill bg-primary text-white float-end"><small>Price: $@Model.Price</small></span>
+    </h4>
+    <ul>
+
+        <li>IMG link: @Model.ImgLink</li>
+        <li>Primary Color: @Model.Category1</li>      
+    </ul>
+    <form id="@Model.ProductId" method="post" asp-page="/Cart">
+        <input type="hidden" asp-for="ProductId" />
+        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+        <button type="submit" class="btn-outline-success btn-md float-end ">Buy</button>
+    </form>
+
+</div>

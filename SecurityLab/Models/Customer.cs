@@ -5,7 +5,7 @@ namespace SecurityLab.Models;
 
 public partial class Customer
 {
-    public short CustomerId { get; set; }
+    public int CustomerId { get; set; }
 
     public string FirstName { get; set; } = null!;
 
@@ -18,4 +18,6 @@ public partial class Customer
     public string? Gender { get; set; }
 
     public double Age { get; set; }
+
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }
