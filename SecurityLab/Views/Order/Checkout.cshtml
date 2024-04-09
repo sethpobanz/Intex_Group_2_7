@@ -1,0 +1,33 @@
+﻿@model Order
+
+<h2>Check out now</h2>
+<p>Please enter your details, and we'll ship your goods right away!</p>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="Checkout" method="post">
+    <h3>Ship to</h3>
+    <div class="form-group">
+        <label>Enter your Address</label>
+        <input asp-for="ShippingAddress" class="form-control" />
+    </div>
+    <input type="hidden" asp-for="TypeOfTransaction" value="TestTransactionType" />
+    <input type="hidden" asp-for="DayOfWeek" value="Friday" />
+    <input type="hidden" asp-for="EntryMode" value="CVV" />
+    <input type="hidden" asp-for="CountryOfTransaction" value="USA" />
+    <input type="hidden" asp-for="Bank" value="America First" />
+    <input type="hidden" asp-for="TypeOfCard" value="Visa Credit" />
+    <input type="hidden" asp-for="Customer" value="Customer" />
+    <div class="text-center">
+        <input class="btn btn-primary" type="submit"
+               value="Complete Order" />
+    </div>
+</form>
+
+
+@* The  field is required.
+The  field is required.
+The CountryOfTransaction field is required.
+The  field is required.
+The  field is required.
+The  field is required. *@

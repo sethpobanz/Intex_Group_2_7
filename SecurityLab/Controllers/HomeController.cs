@@ -48,6 +48,11 @@ namespace SecurityLab.Controllers
             return View();
         }
 
+        public IActionResult About()
+        {
+            return View();
+        }
+
         public IActionResult LegoSingle(int productId)
         {
             // Find the product by productId
