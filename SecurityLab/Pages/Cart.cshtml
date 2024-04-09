@@ -1,0 +1,46 @@
+﻿@page
+@model SecurityLab.Pages.BuyModel
+@{
+}
+<h1>Your Cart</h1>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Quantity</th>
+            <th class="text-right">Amount</th>
+            <th class="text-right">Subtotal</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var l in Model.Cart?.Lines ?? Enumerable.Empty<Cart.CartLine>())
+        {
+            <tr>
+                <td class="text-left">@l.Product.Name</td>
+                <td class="text-center">@l.Quantity</td>
+                <td class="text-right">$@l.Product.Price</td>
+                <td class="text-right">@((l.Product.Price * l.Quantity).ToString("c"))</td>
+                <td class="text-center">
+                    <form asp-page-handler="Remove" method="post">
+                        <input type="hidden" name="ProductId" value="@l.Product.ProductId" />
+                        <input type="hidden" name="returnUrl" value="@Model?.ReturnUrl" />
+                        <button type="submit" class="btn btn-small btn-danger">Remove</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total:</td>
+            <td class="text-right">$@Model.Cart?.CalculateTotal()</td>
+        </tr>
+    </tfoot>
+</table>
+<br />
+<div class="text-center">
+    <a class="btn btn-primary" href="@Model.ReturnUrl">Keep Shopping</a>
+</div>

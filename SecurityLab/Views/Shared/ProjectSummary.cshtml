@@ -12,9 +12,16 @@
     </h4>
     <ul>
 
-        <li>IMG link: @Model.ImgLink</li>
+        <img src="@Model.ImgLink" alt="Image" style="max-width: 200px; height: auto;">
+
+
         <li>Primary Color: @Model.Category1</li>      
     </ul>
+    <form asp-controller="Home" asp-action="LegoSingle" method="get">
+        <input type="hidden" name="productId" value="@Model.ProductId" />
+        <button type="submit" class="btn-outline-success btn-md float-end ">View Details </button>
+    </form>
+    <br />
     <form id="@Model.ProductId" method="post" asp-page="/Cart">
         <input type="hidden" asp-for="ProductId" />
         <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />

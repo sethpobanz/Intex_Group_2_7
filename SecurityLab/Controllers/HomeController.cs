@@ -48,6 +48,21 @@ namespace SecurityLab.Controllers
             return View();
         }
 
+        public IActionResult LegoSingle(int productId)
+        {
+            // Find the product by productId
+            var product = _repo.Products.FirstOrDefault(p => p.ProductId == productId);
+
+            if (product == null)
+            {
+                // Product not found, handle error or redirect to another page
+                return NotFound(); // Return a 404 Not Found error
+            }
+
+            // Pass the product details to the view
+            return View(product); // Assuming you have a LegoSingle.cshtml view to display product details
+        }
+
         [Authorize]
         public IActionResult Secrets()
         {

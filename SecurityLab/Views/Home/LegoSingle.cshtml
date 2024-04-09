@@ -1,0 +1,21 @@
+﻿@model Product  
+
+@{
+    ViewData["Title"] = "Lego Product Details";
+}
+
+
+@if (Model != null)
+{
+    <h2>@Model.Name</h2>
+    <br />
+    <img src="@Model.ImgLink" alt="Image" style="max-width: 400px; height: auto;">
+    <br />
+    <p>Year: @Model.Year</p>
+    <p>Price: @Model.Price</p>
+}
+else
+{
+    <p>Product details not found.</p>
+}
+
