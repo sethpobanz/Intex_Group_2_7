@@ -84,13 +84,8 @@ namespace SecurityLab.Controllers
 
             // Pass the product details to the view
             return View(product); // Assuming you have a LegoSingle.cshtml view to display product details
-        }
+        }      
 
-        [Authorize]
-        public IActionResult Secrets()
-        {
-            return View();
-        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

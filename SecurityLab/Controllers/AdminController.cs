@@ -24,6 +24,34 @@ namespace SecurityLab.Controllers
             return View();
         }
 
+        public IActionResult AdminProducts()
+        {
+            var products = _prodRepo.Products.ToList();
+
+            return View(products);
+        }
+
+        [HttpGet]
+        public IActionResult EditProduct(int id)
+        {
+            var recordToEdit = _prodRepo.Products.Single(x => x.ProductId == id);
+
+            //ViewBag.Categories = _prodRepo.Categories.ToList();
+
+            return View("addProduct", recordToEdit);
+        }
+
+        //[HttpPost]
+        //public IActionResult EditProduct(Product updatedMovie)
+        //{
+        //    _prodRepo.Update(updatedMovie);
+        //    _prodRepo.SaveChanges();
+
+        //    return RedirectToAction("AdminProducts");
+        //}
+
+
+
         public IActionResult AdminOrdersView(int pageNum)
         {
             int pageSize = 20;
