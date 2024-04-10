@@ -31,6 +31,23 @@ namespace SecurityLab.Controllers
         }
 
         [HttpGet]
+        public IActionResult addProduct()
+        {
+            return View(new Product());
+        }
+
+        [HttpPost]
+        public IActionResult addProduct(Product response)
+        {
+            _prodRepo.Add(response);
+            _prodRepo.SaveChanges();
+            
+            return RedirectToAction("AdminProducts");
+        }
+
+
+
+        [HttpGet]
         public IActionResult EditProduct(int id)
         {
             var recordToEdit = _prodRepo.Products.Single(x => x.ProductId == id);
@@ -40,14 +57,36 @@ namespace SecurityLab.Controllers
             return View("addProduct", recordToEdit);
         }
 
-        //[HttpPost]
-        //public IActionResult EditProduct(Product updatedMovie)
-        //{
-        //    _prodRepo.Update(updatedMovie);
-        //    _prodRepo.SaveChanges();
+        [HttpPost]
+        public IActionResult EditProduct(Product updatedProduct)
+        {
+            _prodRepo.Update(updatedProduct);
+            _prodRepo.SaveChanges();
 
-        //    return RedirectToAction("AdminProducts");
-        //}
+            return RedirectToAction("AdminProducts");
+        }
+
+        [HttpGet]
+        public IActionResult DeleteProduct(int id)
+        {
+            var productToDelete = _prodRepo.Products.FirstOrDefault(p => p.ProductId == id);
+
+            if (productToDelete == null)
+            {
+                return NotFound(); // Product not found, return 404 Not Found page
+            }
+
+            return View(productToDelete);
+        }
+
+
+        [HttpPost]
+        public IActionResult DeleteProduct(Product products)
+        {
+            _prodRepo.Remove(products);
+            _prodRepo.SaveChanges();
+            return RedirectToAction("AdminProducts");
+        }
 
 
 
