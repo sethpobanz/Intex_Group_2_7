@@ -47,7 +47,13 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IProductInterface, EFProductRepository>();
 builder.Services.AddScoped<IOrderRepository, EFOrderRepository>();
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/Users", "RequireAdminRole");
+    options.Conventions.AuthorizeFolder("/Roles", "RequireAdminRole");
+});
+
+
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();

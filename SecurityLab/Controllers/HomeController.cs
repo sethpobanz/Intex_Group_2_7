@@ -43,7 +43,11 @@ namespace SecurityLab.Controllers
             return View(blah);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminPortal()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
