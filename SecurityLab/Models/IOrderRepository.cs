@@ -1,6 +1,4 @@
-﻿
-
-namespace SecurityLab.Models
+﻿namespace SecurityLab.Models
 {
 
     public interface IOrderRepository

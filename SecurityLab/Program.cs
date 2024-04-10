@@ -47,6 +47,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IProductInterface, EFProductRepository>();
 builder.Services.AddScoped<IOrderRepository, EFOrderRepository>();
+builder.Services.AddScoped<IOrder2Repository, EFOrder2Repository>();
+
 builder.Services.AddRazorPages();
 
 builder.Services.AddDistributedMemoryCache();
@@ -86,13 +88,28 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
+app.MapControllerRoute(
+    name: "legoPagination",
+    pattern: "Legos/Page{pageNum}",
+    defaults: new { controller = "Home", action = "Index" }
+);
+
+app.MapControllerRoute(
+    name: "orderPagination",
+    pattern: "Orders/Page{pageNum}",
+    defaults: new { controller = "Admin", action = "AdminOrdersView" }
+);
+
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute("pagenumandtype", "{legoType}/Page{pageNum}", new { Controller = "Home", Action = "Index" });
 app.MapControllerRoute("page", "Page/{pageNum}", new { Controller = "Home", Action = "Index", pageNum = 1 });
 app.MapControllerRoute("bookType", "{legoType}", new { Controller = "Home", Action = "Index", pageNum = 1 });
-app.MapControllerRoute("pagination", "Legos/Page{pageNum}", new { Controller = "Home", Action = "Index", pageNum = 1 });
+app.MapControllerRoute("legoPagination", "Legos/Page{pageNum}", new { Controller = "Home", Action = "Index", pageNum = 1 });
+app.MapControllerRoute("orderPagination", "Orders/Page{pageNum}", new { Controller = "Admin", Action = "AdminOrdersView", pageNum = 1 });
+
 
 
 

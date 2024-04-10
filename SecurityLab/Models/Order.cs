@@ -31,7 +31,7 @@ public partial class Order
 
     public string TypeOfCard { get; set; } = null!;
 
-    public byte Fraud { get; set; }
+    public bool Fraud { get; set; }
 
     public virtual Customer Customer { get; set; } = null!;
 }

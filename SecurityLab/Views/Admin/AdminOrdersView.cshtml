@@ -1,0 +1,56 @@
+﻿@*
+	ADMIN ORDERS VIEW.cshtml
+*@
+@{
+    var customers = ViewBag.Customers as List<Customer>;
+}
+@model OrdersListViewModel
+<h1>BuildWell Order History</h1>
+
+<table class="table table-bordered">
+    <thead class="fw-bold">
+        <tr class="tr-header">
+            <td>Customer ID</td>
+            <td>Date</td>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Type of Transaction</td>
+            <td>Amount</td>
+            <td>Fraud</td>
+            <td>Card Type</td>
+            <td>Bank</td>
+            <td>Country of Transaction</td>
+            <td>Shipping Address</td>
+        </tr>
+    </thead>
+    <tbody>
+        <!--for loop that runs through the model and calls the columns from that model-->
+        @foreach (Order o in Model.Orders)
+        {
+            <tr>
+                <td>@o.CustomerId</td> <!-- indicate that subtable column is not required -->
+                <td>@o.Date</td>
+                <td>@o.Customer?.FirstName</td>
+                <td>@o.Customer?.LastName</td>
+                <td>@o.TypeOfTransaction</td>
+                <td>@o.Amount</td>
+                <td>@o.Fraud</td>
+                <td>@o.TypeOfCard</td>
+                <td>@o.Bank</td>
+                <td>@o.CountryOfTransaction</td>
+                <td>@o.ShippingAddress</td>
+
+                @* <td>@(movie.CopiedToPlex ? "Yes" : "No")</td>
+            <td>@movie.Notes</td> *@
+
+                <!--the fancy stuff that links the buttons to perform certain tasks - delete and edits-->
+                <td><a class="btn btn-edit" asp-controller="Home" asp-action="Edit" asp-route-id="@o.TransactionId">Edit</a></td>
+                <td><a class="btn btn-salmon" asp-controller="Home" asp-action="Delete" asp-route-id="@o.TransactionId">Delete</a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<div page-model="@Model.PaginationInfo" page-action="AdminOrdersView" page-class-enabled="true" page-class="btn"
+     page-class-normal="btn-outline-dark" page-class-selected="btn-primary" class="btn-group pull-right m-1"></div>
