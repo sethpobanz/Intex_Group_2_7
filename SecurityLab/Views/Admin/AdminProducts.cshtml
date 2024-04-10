@@ -1,0 +1,49 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<Product>
+<table class="table table-bordered">
+    <thead class="fw-bold">
+        <tr>
+            <td>Name</td>
+            <td>Year</td>
+            <td>NumParts</td>
+            <td>Price</td>
+            <td>Image Link</td>
+            <td>Primary Color</td>
+            <td>Secondary Color</td>
+            <td>Description</td>
+            <td>Category 1</td>
+            <td>Category 2</td>
+            <td>Category 3</td>
+        </tr>
+
+    </thead>
+
+    @foreach (var x in Model)
+    {
+        <tbody>
+            <tr>
+                <td>@x.Name</td>
+                <td>@x.Year</td>
+                <td>@x.NumParts</td>
+                <td>@x.Price</td>
+                <td>@x.ImgLink</td>
+                <td>@x.PrimaryColor</td>
+                <td>@x.SecondaryColor</td>
+                <td>@x.Description</td>
+                <td>@x.Category1</td>
+                <td>@x.Category2</td>
+                <td>@x.Category3</td>
+
+
+                <td><a class="btn btn-info" asp-controller="Admin" asp-action="EditProduct" asp-route-id="@x.ProductId">Edit</a></td>
+                <td><a class="btn btn-danger" asp-controller="Admin" asp-action="DeleteProduct" asp-route-id="@x.ProductId">Delete</a></td>
+            </tr>
+        </tbody>
+    }
+
+</table>
