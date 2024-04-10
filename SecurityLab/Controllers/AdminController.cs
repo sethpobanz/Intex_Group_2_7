@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SecurityLab.Models;
 using SecurityLab.Models.ViewModels;
+using static NuGet.Packaging.PackagingConstants;
 
 namespace SecurityLab.Controllers
 {
@@ -98,12 +99,12 @@ namespace SecurityLab.Controllers
             {
                 pageNum = 1;
             }
-            var orders = _orderRepo.Orders.Include(o => o.Customer).ToList();
+            var orders = _orderRepo.Orders.Include(o => o.Customer).ToList(); //Where(o => EF.Functions.DateDiffDay(o.Date, DateTime.Today) <= 30).
 
             var ordersBlah = new OrdersListViewModel
             {
                 Orders = _orderRepo.Orders
-                    .Where(x => x.Fraud == true)     // Math.Abs((x.Date.ToDateTime(new Time(0, 0)) - DateTime.Today).Days) <= 30 ORRRR && x.Date >= DateTime.Now.AddDays(-30)                 
+                    .Where(x => x.Fraud == true) //&& Convert.ToDateTime(x.Date) >= DateTime.Today.AddDays(-30)
                     .OrderByDescending(x => x.Date)
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize),
@@ -111,7 +112,7 @@ namespace SecurityLab.Controllers
                 {
                     currentPage = pageNum,
                     itemsPerPage = pageSize,
-                    totalItems = _orderRepo.Orders.Count()
+                    totalItems = 50
                 }
             };
 
