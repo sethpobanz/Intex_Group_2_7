@@ -27,8 +27,22 @@ services.AddDbContext<PobanzTestDbContext>(options =>
 
 // Other service registrations remain the same...
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+})
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultUI()
+.AddDefaultTokenProviders();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+    // Define more policies as needed for different roles
+});
+
+
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IProductInterface, EFProductRepository>();
@@ -57,6 +71,10 @@ else
     app.UseHsts();
 }
 
+
+
+
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -75,6 +93,8 @@ app.MapControllerRoute("pagenumandtype", "{legoType}/Page{pageNum}", new { Contr
 app.MapControllerRoute("page", "Page/{pageNum}", new { Controller = "Home", Action = "Index", pageNum = 1 });
 app.MapControllerRoute("bookType", "{legoType}", new { Controller = "Home", Action = "Index", pageNum = 1 });
 app.MapControllerRoute("pagination", "Legos/Page{pageNum}", new { Controller = "Home", Action = "Index", pageNum = 1 });
+
+
 
 app.MapDefaultControllerRoute();
 app.MapRazorPages();

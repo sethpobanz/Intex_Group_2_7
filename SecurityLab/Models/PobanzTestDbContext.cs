@@ -23,6 +23,8 @@ public partial class PobanzTestDbContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
+    public virtual DbSet<Purchase> Purchases { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=tcp:myfreesqldbserverpobanz.database.windows.net,1433;Initial Catalog=PobanzTestDB;Persist Security Info=False;User ID=spobanz;Password=Bigfatpig@1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
@@ -146,6 +148,37 @@ public partial class PobanzTestDbContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("secondary_color");
             entity.Property(e => e.Year).HasColumnName("year");
+        });
+
+        modelBuilder.Entity<Purchase>(entity =>
+        {
+            entity.HasKey(e => e.OrderId);
+
+            entity.Property(e => e.OrderId)
+                .ValueGeneratedNever()
+                .HasColumnName("order_ID");
+            entity.Property(e => e.City)
+                .HasMaxLength(50)
+                .HasColumnName("city");
+            entity.Property(e => e.Country)
+                .HasMaxLength(50)
+                .HasColumnName("country");
+            entity.Property(e => e.Line1)
+                .HasMaxLength(50)
+                .HasColumnName("line1");
+            entity.Property(e => e.Line2)
+                .HasMaxLength(50)
+                .HasColumnName("line2");
+            entity.Property(e => e.Line3)
+                .HasMaxLength(50)
+                .HasColumnName("line3");
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .HasColumnName("name");
+            entity.Property(e => e.State)
+                .HasMaxLength(50)
+                .HasColumnName("state");
+            entity.Property(e => e.Zip).HasColumnName("zip");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -43,6 +43,7 @@ namespace SecurityLab.Controllers
             return View(blah);
         }
 
+        [Authorize]
         public IActionResult Privacy()
         {
             return View();

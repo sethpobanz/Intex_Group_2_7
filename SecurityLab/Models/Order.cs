@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace SecurityLab.Models;
 
@@ -9,9 +8,9 @@ public partial class Order
     public int TransactionId { get; set; }
 
     public int CustomerId { get; set; }
+
     public ICollection<CartLine> Lines { get; set; }
-            = new List<CartLine>();
-    
+    = new List<CartLine>();
     public DateOnly Date { get; set; }
 
     public string DayOfWeek { get; set; } = null!;
@@ -26,7 +25,6 @@ public partial class Order
 
     public string CountryOfTransaction { get; set; } = null!;
 
-    [Required(ErrorMessage = "Please enter a shipping address")]
     public string? ShippingAddress { get; set; }
 
     public string Bank { get; set; } = null!;
