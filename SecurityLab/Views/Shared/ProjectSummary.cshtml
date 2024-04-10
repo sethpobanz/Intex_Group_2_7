@@ -15,7 +15,7 @@
         <img src="@Model.ImgLink" alt="Image" style="max-width: 200px; height: auto;">
 
 
-        <li>Primary Color: @Model.Category1</li>      
+        <li>Primary Color: @Model.PrimaryColor</li>      
     </ul>
     <form asp-controller="Home" asp-action="LegoSingle" method="get">
         <input type="hidden" name="productId" value="@Model.ProductId" />
