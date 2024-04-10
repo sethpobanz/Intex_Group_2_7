@@ -23,7 +23,18 @@ namespace SecurityLab.Controllers
 
         public IActionResult LegoList(string? legoType, int pageNum = 1)
         {
-            int pageSize = 5;
+            int defaultPageSize = 5;  // Default page size
+            int pageSize = defaultPageSize;
+
+            // Check if itemsPerPage is provided in the query string
+            if (Request.Query.TryGetValue("PaginationInfo.itemsPerPage", out var itemsPerPageValue))
+            {
+                if (int.TryParse(itemsPerPageValue, out int parsedItemsPerPage))
+                {
+                    pageSize = parsedItemsPerPage;
+                }
+            }
+
             var blah = new ProductsListViewModel
             {
                 Products = _repo.Products
@@ -42,6 +53,8 @@ namespace SecurityLab.Controllers
 
             return View(blah);
         }
+
+
 
         [Authorize(Roles = "Admin")]
         public IActionResult AdminPortal()
