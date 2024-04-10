@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SecurityLab.Models;
 
 
@@ -16,7 +17,7 @@ namespace SecurityLab.Controllers
             repository = repoService;
             cart = cartService;
         }
-
+        [Authorize]
         public ViewResult Checkout() => View(new Purchase());
 
         [HttpPost]

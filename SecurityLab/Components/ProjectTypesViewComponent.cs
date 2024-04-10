@@ -5,16 +5,17 @@ namespace SecurityLab.Components
 {
     public class ProjectTypesViewComponent : ViewComponent
     {
-        private IProductInterface _bookRepo;
+        private IProductInterface _repo;
         public ProjectTypesViewComponent(IProductInterface temp)
         {
-            _bookRepo = temp;
+            _repo = temp;
         }
         public IViewComponentResult Invoke()
         {
             ViewBag.SelectedBookType = RouteData?.Values["productType"];
 
-            var productTypes = _bookRepo.Products
+
+            var productTypes = _repo.Products
                 .Select(x => x.Category1)
                 .Distinct()
                 .OrderBy(x => x);

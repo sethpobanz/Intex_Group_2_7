@@ -50,6 +50,13 @@ builder.Services.AddScoped<IOrderRepository, EFOrderRepository>();
 builder.Services.AddScoped<IOrder2Repository, EFOrder2Repository>();
 
 builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/Users", "RequireAdminRole");
+    options.Conventions.AuthorizeFolder("/Roles", "RequireAdminRole");
+});
+
+
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
