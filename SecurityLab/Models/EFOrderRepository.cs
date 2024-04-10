@@ -13,16 +13,16 @@ namespace SecurityLab.Models
             context = ctx;
         }
 
-        public IQueryable<Purchase> Purchases => context.Purchases
+        public IQueryable<Order> Orders => context.Orders
                             .Include(o => o.Lines)
                             .ThenInclude(l => l.Legoproduct);
 
-        public void SaveOrder(Purchase order)
+        public void SaveOrder(Order order)
         {
             context.AttachRange(order.Lines.Select(l => l.Legoproduct));
-            if (order.OrderId == 0)
+            if (order.TransactionId == 0)
             {
-                context.Purchases.Add(order);
+                context.Orders.Add(order);
             }
             context.SaveChanges();
         }

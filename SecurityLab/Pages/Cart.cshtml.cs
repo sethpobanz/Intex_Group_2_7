@@ -8,13 +8,13 @@ namespace SecurityLab.Pages
     public class BuyModel : PageModel
     {
         private IProductInterface _repo;
-        public Cart Cart { get; set; }
+        
         public BuyModel(IProductInterface temp, Cart cartService)
         {
             _repo = temp;
             Cart = cartService;
         }
-
+        public Cart Cart { get; set; }
         public string ReturnUrl { get; set; } = "/";
 
         public void OnGet(string returnUrl)
