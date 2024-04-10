@@ -18,10 +18,10 @@ namespace SecurityLab.Controllers
             cart = cartService;
         }
         [Authorize]
-        public ViewResult Checkout() => View(new Purchase());
+        public ViewResult Checkout() => View(new Order());
 
         [HttpPost]
-        public IActionResult Checkout(Purchase order)
+        public IActionResult Checkout(Order order)
         {
             if (cart.Lines.Count() == 0)
             {
@@ -34,7 +34,7 @@ namespace SecurityLab.Controllers
                 repository.SaveOrder(order);
                 cart.Clear();
                 return RedirectToPage("/Completed",
-                    new { orderId = order.OrderId });
+                    new { orderId = order.TransactionId });
             }
             else
             {

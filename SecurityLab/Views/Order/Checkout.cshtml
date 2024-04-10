@@ -1,4 +1,7 @@
-﻿@model Purchase
+﻿@{
+    var customers = ViewBag.Customers as List<Customer>;
+}
+@model Order
 
 <h2>Check out now</h2>
 <p>Please enter your details, and we'll ship your goods right away!</p>
@@ -6,39 +9,98 @@
 <form asp-action="Checkout" method="post">
     <h3>Ship to</h3>
     <div class="form-group">
-        <label>Name:</label>
-        <input asp-for="Name" class="form-control" />
+        <label>First Name:</label>
+        <input asp-for="Customer.FirstName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Last Name:</label>
+        <input asp-for="Customer.LastName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label> YOU A FRAUD? </label>
+        <select asp-for="Fraud" class="form-control">
+            <option value="true">True</option>
+            <option value="false">False</option>
+        </select>
     </div>
     <h3>Address</h3>
     <div class="form-group">
         <label>Line 1:</label>
-        <input asp-for="Line1" class="form-control" />
+        <input class="form-control" />
     </div>
     <div class="form-group">
         <label>Line 2:</label>
-        <input asp-for="Line2" class="form-control" />
+        <input class="form-control" />
     </div>
     <div class="form-group">
         <label>Line 3:</label>
-        <input asp-for="Line3" class="form-control" />
+        <input class="form-control" />
     </div>
     <div class="form-group">
         <label>City:</label>
-        <input asp-for="City" class="form-control" />
+        <input class="form-control" />
     </div>
     <div class="form-group">
         <label>State:</label>
-        <input asp-for="State" class="form-control" />
+        <input class="form-control" />
     </div>
     <div class="form-group">
         <label>Zip:</label>
-        <input asp-for="Zip" class="form-control" />
+        <input class="form-control" />
     </div>
     <div class="form-group">
         <label>Country:</label>
-        <input asp-for="Country" class="form-control" />
+        <input asp-for="ShippingAddress" class="form-control" />
     </div>
-    <h3>Options</h3>
+    <h3>Card Information</h3>
+    <div class="form-group">
+        <label>Country of Transaction:</label>
+        <input asp-for="CountryOfTransaction" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Transaction Type:</label>
+        <select asp-for="TypeOfTransaction" class="form-control">
+            <option value="POS">POS</option>
+            <option value="ATM">ATM</option>
+            <option value="Online">Online</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Entry Mode:</label>
+        <select asp-for="EntryMode" class="form-control">
+            <option value="Tap">Tap</option>
+            <option value="PIN">PIN</option>
+            <option value="CVC">CVC</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Card Type:</label>
+        <select asp-for="TypeOfCard" class="form-control">
+            <option value="MasterCard">MasterCard</option>
+            <option value="Visa">Visa</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Bank:</label>
+        <select asp-for="Bank" class="form-control">
+            <option value="Barclays">Barclays</option>
+            <option value="Halifax">Halifax</option>
+            <option value="HSBC">HSBC</option>
+            <option value="Lloyds">Lloyds</option>
+            <option value="Metro">Metro</option>
+            <option value="Monzo">Monzo</option>
+            <option value="RBS">RBS</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Day of Week:</label>
+        <input asp-for="DayOfWeek" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Country of Residence:</label>
+        <input asp-for="Customer.CountryOfResidence" class="form-control" />
+    </div>
+    <br />
     <div class="text-center">
         <input class="btn btn-primary" type="submit"
                value="Complete Order" />

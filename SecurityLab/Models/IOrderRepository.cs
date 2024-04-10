@@ -4,7 +4,7 @@
     public interface IOrderRepository
     {
 
-        IQueryable<Purchase> Purchases { get; }
-        void SaveOrder(Purchase order);
+        IQueryable<Order> Orders { get; }
+        void SaveOrder(Order order);
     }
 }
