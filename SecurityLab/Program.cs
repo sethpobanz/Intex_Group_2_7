@@ -8,7 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var configuration = builder.Configuration;
 
-
+services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+});
 
 
 // Add services to the container.
@@ -17,19 +21,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-services.AddAuthentication().AddGoogle(googleOptions =>
-{
-    googleOptions.ClientId = configuration["Authentication:Google:ClientId"]
-        ?? Environment.GetEnvironmentVariable("Authentication__Google__ClientId");
-    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"]
-        ?? Environment.GetEnvironmentVariable("Authentication__Google__ClientSecret");
-});
-
-// Use Azure SQL Server connection
-var azureSqlConnectionString = configuration.GetConnectionString("AzureSqlConnection")
-    ?? Environment.GetEnvironmentVariable("AzureSqlConnection");
+var azureSqlConnectionString = Environment.GetEnvironmentVariable("AzureSqlConnection");
 services.AddDbContext<PobanzTestDbContext>(options =>
     options.UseSqlServer(azureSqlConnectionString));
+// Use Azure SQL Server connection
 
 // Other service registrations remain the same...
 
