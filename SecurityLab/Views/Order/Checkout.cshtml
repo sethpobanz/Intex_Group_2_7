@@ -8,6 +8,7 @@
 <div asp-validation-summary="All" class="text-danger"></div>
 <form asp-action="Checkout" method="post">
     <h3>Ship to</h3>
+    <input type="hidden" asp-for="Customer.UserId"/>
     <div class="form-group">
         <label>First Name:</label>
         <input asp-for="Customer.FirstName" class="form-control" />

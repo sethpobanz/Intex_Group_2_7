@@ -21,6 +21,7 @@
             <td>Bank</td>
             <td>Country of Transaction</td>
             <td>Shipping Address</td>
+            <td>Country of Residence</td>
         </tr>
     </thead>
     <tbody>
@@ -39,6 +40,7 @@
                 <td>@o.Bank</td>
                 <td>@o.CountryOfTransaction</td>
                 <td>@o.ShippingAddress</td>
+                <td>@o.Customer?.CountryOfResidence</td>
 
                 @* <td>@(movie.CopiedToPlex ? "Yes" : "No")</td>
             <td>@movie.Notes</td> *@
