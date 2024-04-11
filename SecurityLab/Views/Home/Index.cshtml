@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+@model List<Product>
 <br />
 <br />
 <div class="container-fluid">
@@ -17,29 +17,30 @@
         </div>
     </div>
 
-    <div class="row mt-3">
-        <div class="col">
-            <div class="card-deck">
-                <div class="card">
-                    <img src="~/lib/photos/lego_logo.svg.png" class="card-img-top img-fluid" alt="Image 1" style="max-width: 400px; height: auto;">
-                    <div class="card-body">
-                        <h5 class="card-title">Title 1</h5>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-3">
+            @foreach (var product in Model)
+            {
+                <div class="col mb-4">
+                    <div class="card text-center">
+                        <div class="d-flex justify-content-center">
+                            <!-- Centering the image horizontally -->
+                            <img class="card-img-top" style="height: 200px; width: auto;" src="@product.ImgLink" alt="Card image">
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">@product.Name</h4>
+                            <form asp-controller="Home" asp-action="LegoSingle" method="get">
+                                <input type="hidden" name="productId" value="@product.ProductId" />
+                                <button type="submit" class="btn btn-success btn-sm">View Details</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="card">
-                    <img src="~/lib/photos/lego_logo.svg.png" class="card-img-top img-fluid" alt="Image 2" style="max-width: 400px; height: auto;">
-                    <div class="card-body">
-                        <h5 class="card-title">Title 2</h5>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="~/lib/photos/lego_logo.svg.png" class="card-img-top img-fluid" alt="Image 3" style="max-width: 400px; height: auto;">
-                    <div class="card-body">
-                        <h5 class="card-title">Title 3</h5>
-                    </div>
-                </div>
-                <!-- Add more cards as needed -->
-            </div>
+            }
         </div>
     </div>
+
+
+
+   
 </div>

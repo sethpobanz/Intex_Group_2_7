@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using SecurityLab.Models;
 using SecurityLab.Models.ViewModels;
 using System.Diagnostics;
@@ -9,16 +10,26 @@ namespace SecurityLab.Controllers
     public class HomeController : Controller
     {
         private IProductInterface _repo;
+        private IUserRecInterface _recRepo;
 
-        public HomeController(IProductInterface repo)
+        public HomeController(IProductInterface repo, IUserRecInterface recRepo)
         {
             _repo = repo;
+            _recRepo = recRepo;
         }
 
         public IActionResult Index()
         {
+            // Get all UserPipelines from _recRepo
+            var userPipelines = _recRepo.UserPipelines.ToList();
 
-            return View();
+            // Extract the list of ProductIds from UserPipelines
+            var productIds = userPipelines.Select(p => p.ProductId).ToList();
+
+            // Filter products from _repo that match the ProductIds in userPipelines
+            var rec = _repo.Products.Where(p => productIds.Contains(p.ProductId)).ToList();
+
+            return View(rec);
         }
 
         public IActionResult LegoList(string? legoType, int pageNum = 1)
