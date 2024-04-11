@@ -23,6 +23,8 @@ namespace SecurityLab.Controllers
         [HttpPost]
         public IActionResult Checkout(Order order)
         {
+            order.Date = DateOnly.FromDateTime(DateTime.Today);
+            
             if (cart.Lines.Count() == 0)
             {
                 ModelState.AddModelError("",
