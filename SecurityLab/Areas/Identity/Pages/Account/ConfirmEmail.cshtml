@@ -1,8 +1,39 @@
-﻿@page
+﻿
+
+@page
 @model ConfirmEmailModel
 @{
     ViewData["Title"] = "Confirm email";
 }
 
-<h1>@ViewData["Title"]</h1>
-<partial name="_StatusMessage" model="Model.StatusMessage" />
+<!-- Add CSS for styling the spinner -->
+<style>
+    #loadingSpinner {
+        display: none; /* Initially hide the spinner */
+    }
+</style>
+
+<!-- Display loading spinner and success message -->
+<h2>Success!</h2>
+<br />
+<div id="loadingSpinner">
+    <!-- Use your preferred loading spinner here -->
+    <!-- For example, you can use Font Awesome spinner -->
+    <i class="fa fa-spinner fa-spin"></i> Loading...
+</div>
+<br />
+<p>You will be redirected shortly...</p>
+
+<!-- JavaScript to show spinner and redirect after 3 seconds -->
+<script>
+    // Show loading spinner when page starts loading
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("loadingSpinner").style.display = "block";
+        
+        // Redirect after 3 seconds
+        setTimeout(function () {
+            window.location.href = '@Url.Action("Index", "Home")'; // Redirect to Home/Index using Razor helper
+        }, 3000); // 3000 milliseconds = 3 seconds
+    });
+</script>
+
