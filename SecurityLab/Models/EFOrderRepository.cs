@@ -20,10 +20,23 @@ namespace SecurityLab.Models
         public void SaveOrder(Order order)
         {
             context.AttachRange(order.Lines.Select(l => l.Legoproduct));
-            if (order.TransactionId == 0)
+            
+            // Check if the Customer exists
+            var customer = context.Customers.Find(order.CustomerId);
+
+            if (customer != null)
             {
-                context.Orders.Add(order);
+                // Attach the existing Customer
+                order.Customer = customer;
             }
+            else
+            {
+                // Create a new Customer and attach it to the Order
+                order.Customer = new Customer { /* Set customer properties */ };
+                context.Customers.Add(order.Customer);
+            }
+
+            context.Orders.Add(order);
             context.SaveChanges();
         }
     }
