@@ -23,7 +23,9 @@ public partial class PobanzTestDbContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
-    public virtual DbSet<Purchase> Purchases { get; set; }
+    public virtual DbSet<ProductPipeline> ProductPipelines { get; set; }
+
+    public virtual DbSet<UserPipeline> UserPipelines { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -35,9 +37,7 @@ public partial class PobanzTestDbContext : DbContext
         {
             entity.HasKey(e => e.CustomerId).HasName("customer_ID");
 
-            entity.Property(e => e.CustomerId)
-                .ValueGeneratedNever()
-                .HasColumnName("customer_ID");
+            entity.Property(e => e.CustomerId).HasColumnName("customer_ID");
             entity.Property(e => e.Age).HasColumnName("age");
             entity.Property(e => e.BirthDate).HasColumnName("birth_date");
             entity.Property(e => e.CountryOfResidence)
@@ -78,9 +78,7 @@ public partial class PobanzTestDbContext : DbContext
         {
             entity.HasKey(e => e.TransactionId).HasName("transaction_ID");
 
-            entity.Property(e => e.TransactionId)
-                .ValueGeneratedNever()
-                .HasColumnName("transaction_ID");
+            entity.Property(e => e.TransactionId).HasColumnName("transaction_ID");
             entity.Property(e => e.Amount).HasColumnName("amount");
             entity.Property(e => e.Bank)
                 .HasMaxLength(50)
@@ -150,35 +148,31 @@ public partial class PobanzTestDbContext : DbContext
             entity.Property(e => e.Year).HasColumnName("year");
         });
 
-        modelBuilder.Entity<Purchase>(entity =>
+        modelBuilder.Entity<ProductPipeline>(entity =>
         {
-            entity.HasKey(e => e.OrderId);
+            entity
+                .HasNoKey()
+                .ToTable("Product_Pipeline");
 
-            entity.Property(e => e.OrderId)
-                .ValueGeneratedNever()
-                .HasColumnName("order_ID");
-            entity.Property(e => e.City)
-                .HasMaxLength(50)
-                .HasColumnName("city");
-            entity.Property(e => e.Country)
-                .HasMaxLength(50)
-                .HasColumnName("country");
-            entity.Property(e => e.Line1)
-                .HasMaxLength(50)
-                .HasColumnName("line1");
-            entity.Property(e => e.Line2)
-                .HasMaxLength(50)
-                .HasColumnName("line2");
-            entity.Property(e => e.Line3)
-                .HasMaxLength(50)
-                .HasColumnName("line3");
-            entity.Property(e => e.Name)
-                .HasMaxLength(50)
-                .HasColumnName("name");
-            entity.Property(e => e.State)
-                .HasMaxLength(50)
-                .HasColumnName("state");
-            entity.Property(e => e.Zip).HasColumnName("zip");
+            entity.Property(e => e.ProductId).HasColumnName("product_ID");
+            entity.Property(e => e.Rec1).HasColumnName("rec1");
+            entity.Property(e => e.Rec2).HasColumnName("rec2");
+            entity.Property(e => e.Rec3).HasColumnName("rec3");
+            entity.Property(e => e.Rec4).HasColumnName("rec4");
+            entity.Property(e => e.Rec5).HasColumnName("rec5");
+            entity.Property(e => e.Rec6).HasColumnName("rec6");
+            entity.Property(e => e.Rec7).HasColumnName("rec7");
+            entity.Property(e => e.Rec8).HasColumnName("rec8");
+        });
+
+        modelBuilder.Entity<UserPipeline>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("User_Pipeline");
+
+            entity.Property(e => e.AvgRating).HasColumnName("avg_rating");
+            entity.Property(e => e.ProductId).HasColumnName("product_ID");
         });
 
         OnModelCreatingPartial(modelBuilder);
