@@ -18,6 +18,10 @@
         <h4>Filter by Category</h4>
         <vc:project-types />
     </div>
+    <div class="col-3">
+        <h4>Filter by Color</h4>
+        <vc:color-filter />
+    </div>
     <div class="container col-9">
         <main role="main" class="pb-3">
             @foreach (Product b in Model.Products)
@@ -27,7 +31,7 @@
 
             }
             <div page-model="@Model.PaginationInfo" page-action="LegoList" page-class-enabled="true" page-class="btn"
-             page-class-normal="btn-outline-dark" page-class-selected="btn-primary" page-url-legoType="@Model.CurrentProductType" class="btn-group pull-right m-1"></div>
+                 page-class-normal="btn-outline-dark" page-class-selected="btn-primary" page-url-legoType="@Model.CurrentProductType" page-url-legoColor="@Model.CurrentColor" class="btn-group pull-right m-1"></div>
 
         </main>
     </div>
