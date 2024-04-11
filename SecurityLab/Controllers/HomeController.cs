@@ -143,7 +143,10 @@ namespace SecurityLab.Controllers
         }
 
 
-
+        public IActionResult UserProfile()
+        {
+            return View();
+        }
 
 
 
