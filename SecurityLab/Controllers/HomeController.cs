@@ -32,7 +32,7 @@ namespace SecurityLab.Controllers
             return View(rec);
         }
 
-        public IActionResult LegoList(string? legoType, int pageNum = 1)
+        public IActionResult LegoList(string? legoType, string? legoColor, int pageNum = 1)
         {
             int defaultPageSize = 5;  // Default page size
             int pageSize = defaultPageSize;
@@ -49,7 +49,10 @@ namespace SecurityLab.Controllers
             var blah = new ProductsListViewModel
             {
                 Products = _repo.Products
-                    .Where(x => x.Category1 == legoType || legoType == null)
+                    .Where(x =>
+                        (legoType == null || x.Category1 == legoType || x.Category2 == legoType || x.Category3 == legoType) &&
+                        (legoColor == null || x.PrimaryColor == legoColor || x.SecondaryColor == legoColor)
+                    )
                     .OrderBy(x => x.Name)
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize),
@@ -57,13 +60,17 @@ namespace SecurityLab.Controllers
                 {
                     currentPage = pageNum,
                     itemsPerPage = pageSize,
-                    totalItems = legoType == null ? _repo.Products.Count() : _repo.Products.Where(x => x.Category1 == legoType).Count()
+                    totalItems = _repo.Products.Count()
                 },
-                CurrentProductType = legoType
+                CurrentProductType = legoType,
+                CurrentColor = legoColor
             };
 
             return View(blah);
         }
+
+
+
 
 
 
