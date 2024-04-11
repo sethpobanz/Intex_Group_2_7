@@ -1,55 +1,66 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model List<Product>
 
-
-
-@model List<Product>
-
-<td><a class="btn btn-info" asp-controller="Admin" asp-action="addProduct">Add New Product</a></td>
+<a class="btn btn-info" asp-controller="Admin" asp-action="addProduct">Add New Product</a>
 
 <br />
-<table class="table table-bordered">
+<table class="table table-striped table-bordered">
     <thead class="fw-bold">
         <tr>
-            <td>Name</td>
-            <td>Year</td>
-            <td>NumParts</td>
-            <td>Price</td>
-            <td>Image Link</td>
-            <td>Primary Color</td>
-            <td>Secondary Color</td>
-            <td>Description</td>
-            <td>Category 1</td>
-            <td>Category 2</td>
-            <td>Category 3</td>
+            <th>Name</th>
+            <th>Year</th>
+            <th>NumParts</th>
+            <th>Price</th>
+            <th>Image Link</th>
+            <th>Primary Color</th>
+            <th>Secondary Color</th>
+            <th>Description</th>
+            <th>Category 1</th>
+            <th>Category 2</th>
+            <th>Category 3</th>
+            <th>Actions</th>
         </tr>
-
     </thead>
-
-    @foreach (var x in Model)
-    {
-        <tbody>
+    <tbody>
+        @foreach (var x in Model)
+        {
             <tr>
                 <td>@x.Name</td>
                 <td>@x.Year</td>
                 <td>@x.NumParts</td>
                 <td>@x.Price</td>
-                <td>@x.ImgLink</td>
+                <td>
+                    <img src="@x.ImgLink" style="max-width: 80px; height: auto;" />
+                </td>
                 <td>@x.PrimaryColor</td>
                 <td>@x.SecondaryColor</td>
-                <td>@x.Description</td>
+                <td>
+                    <!-- Button to trigger description modal -->
+                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#descriptionModal_@x.ProductId">View Description</button>
+
+                    <!-- Description Modal -->
+                    <div class="modal fade" id="descriptionModal_@x.ProductId" tabindex="-1" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="descriptionModalLabel">@x.Name Description</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>@x.Description</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
                 <td>@x.Category1</td>
                 <td>@x.Category2</td>
                 <td>@x.Category3</td>
-
-
-                <td><a class="btn btn-info" asp-controller="Admin" asp-action="EditProduct" asp-route-id="@x.ProductId">Edit</a></td>
-                <td><a class="btn btn-danger" asp-controller="Admin" asp-action="DeleteProduct" asp-route-id="@x.ProductId">Delete</a></td>
+                <td>
+                    <!-- Edit and Delete buttons -->
+                    <a class="btn btn-info" asp-controller="Admin" asp-action="EditProduct" asp-route-id="@x.ProductId">Edit</a>
+                    <a class="btn btn-danger" asp-controller="Admin" asp-action="DeleteProduct" asp-route-id="@x.ProductId">Delete</a>
+                </td>
             </tr>
-        </tbody>
-    }
-
+        }
+    </tbody>
 </table>
