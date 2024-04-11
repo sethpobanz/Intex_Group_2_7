@@ -1,25 +1,76 @@
-﻿@model Product  
+﻿@model Product
 
-@{
-    ViewData["Title"] = "Lego Product Details";
-}
+<style>
+    /* Custom CSS for LegoSingle */
+    .product-details-container {
+        margin: 20px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
+        .product-details-container img {
+            max-width: 400px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .product-details-container p {
+            margin-bottom: 10px;
+        }
+
+        .product-details-container button {
+            margin-top: 20px;
+        }
+
+    .description-text {
+        white-space: pre-wrap; /* Preserve spaces and allow wrapping */
+    }
+</style>
 
 @if (Model != null)
 {
-    <h2>@Model.Name</h2>
-    <br />
-    <img src="@Model.ImgLink" alt="Image" style="max-width: 400px; height: auto;">
-    <br />
-    <p>Year: @Model.Year</p>
-    <p>Price: @Model.Price</p>
+    <div class="product-details-container">
+        <h2>@Model.Name</h2>
+        <img src="@Model.ImgLink" alt="Image">
+        <br />
+        <h4>$@Model.Price</h4>
+        <br />
+        <br />
+
+        <form id="@Model.ProductId" method="post" asp-page="/Cart">
+            <input type="hidden" asp-for="ProductId" />
+            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <button type="submit" class="btn btn-outline-success btn-lg">Add to Cart</button>
+        </form>
+        <br />
+        <br />
+        <!-- Details Section with Dropdowns -->
+        <details>
+            <summary><b>Details</b></summary>
+            <ul class="list-group mt-3">
+                <li class="list-group-item">
+                    <strong>Category:</strong>
+                    <p>@Model.Category1</p>
+                </li>
+                <li class="list-group-item">
+                    <strong>Year:</strong>
+                    <p>@Model.Year</p>
+                </li>
+                <li class="list-group-item">
+                    <strong>Primary Color:</strong>
+                    <p>@Model.PrimaryColor</p>
+                </li>
+                <li class="list-group-item">
+                    <strong>Description:</strong>
+                    <p class="description-text">@Model.Description</p>
+                </li>
+            </ul>
+        </details>
+    </div>
 }
 else
 {
     <p>Product details not found.</p>
 }
-<form id="@Model.ProductId" method="post" asp-page="/Cart">
-    <input type="hidden" asp-for="ProductId" />
-    <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-    <button type="submit" class="btn-outline-success btn-lg ">Buy</button>
-</form>
