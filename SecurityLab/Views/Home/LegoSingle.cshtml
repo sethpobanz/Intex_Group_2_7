@@ -1,4 +1,4 @@
-﻿@model Product
+﻿@model LegoSingleViewModel
 
 <style>
     /* Custom CSS for LegoSingle */
@@ -29,48 +29,69 @@
     }
 </style>
 
-@if (Model != null)
+<div class="product-details-container">
+    <h2>@Model.Product.Name</h2>
+    <img src="@Model.Product.ImgLink" alt="Image">
+    <br />
+    <h4>$@Model.Product.Price</h4>
+    <br />
+    <form id="@Model.Product.ProductId" method="post" asp-page="/Cart">
+        <input type="hidden" asp-for="Product.ProductId" />
+        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+        <button type="submit" class="btn btn-outline-success btn-lg">Add to Cart</button>
+    </form>
+    <br />
+    <details>
+        <summary><b>Details</b></summary>
+        <ul class="list-group mt-3">
+            <li class="list-group-item">
+                <strong>Category:</strong>
+                <p>@Model.Product.Category1</p>
+            </li>
+            <li class="list-group-item">
+                <strong>Year:</strong>
+                <p>@Model.Product.Year</p>
+            </li>
+            <li class="list-group-item">
+                <strong>Primary Color:</strong>
+                <p>@Model.Product.PrimaryColor</p>
+            </li>
+            <li class="list-group-item">
+                <strong>Description:</strong>
+                <p class="description-text">@Model.Product.Description</p>
+            </li>
+        </ul>
+    </details>
+</div>
+<br />
+<br />
+@if (Model.RecommendedProducts != null && Model.RecommendedProducts.Any())
 {
-    <div class="product-details-container">
-        <h2>@Model.Name</h2>
-        <img src="@Model.ImgLink" alt="Image">
+    <div class="recommendations-container">
+        <h4>You might also like:</h4>
         <br />
-        <h4>$@Model.Price</h4>
-        <br />
-        <br />
-
-        <form id="@Model.ProductId" method="post" asp-page="/Cart">
-            <input type="hidden" asp-for="ProductId" />
-            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-            <button type="submit" class="btn btn-outline-success btn-lg">Add to Cart</button>
-        </form>
-        <br />
-        <br />
-        <!-- Details Section with Dropdowns -->
-        <details>
-            <summary><b>Details</b></summary>
-            <ul class="list-group mt-3">
-                <li class="list-group-item">
-                    <strong>Category:</strong>
-                    <p>@Model.Category1</p>
-                </li>
-                <li class="list-group-item">
-                    <strong>Year:</strong>
-                    <p>@Model.Year</p>
-                </li>
-                <li class="list-group-item">
-                    <strong>Primary Color:</strong>
-                    <p>@Model.PrimaryColor</p>
-                </li>
-                <li class="list-group-item">
-                    <strong>Description:</strong>
-                    <p class="description-text">@Model.Description</p>
-                </li>
-            </ul>
-        </details>
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-3">
+                @foreach (var recommendedProduct in Model.RecommendedProducts)
+                {
+                    <div class="col mb-4">
+                        <div class="card text-center">
+                            <!-- Center-align the image horizontally -->
+                            <img src="@recommendedProduct.ImgLink" class="card-img-top mx-auto d-block" style="height: 200px; width: auto;" alt="Product Image">
+                            <div class="card-body">
+                                <h5 class="card-title">@recommendedProduct.Name</h5>
+                                <p class="card-text">$@recommendedProduct.Price</p>
+                                <form asp-controller="Home" asp-action="LegoSingle" method="get">
+                                    <input type="hidden" name="productId" value="@recommendedProduct.ProductId" />
+                                    <button type="submit" class="btn btn-success btn-sm">View Details</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
+
 }
-else
-{
-    <p>Product details not found.</p>
-}
+
