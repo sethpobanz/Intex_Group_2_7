@@ -5,27 +5,65 @@
 @{
 }
 @model Product
-<div class="card m-1 p-1">
-    <h4>
-        @Model.Name
-        <span class="badge rounded-pill bg-primary text-white float-end"><small>Price: $@Model.Price</small></span>
-    </h4>
+
+<style>
+    /* Custom CSS for ProjectSummary */
+    .product-card {
+        margin: 10px; /* Adjust spacing between cards */
+        padding: 10px;
+        background-color: #f8f9fa; /* Light background color */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        position: relative; /* Enable positioning */
+    }
+
+        .product-card h4 {
+            margin-bottom: 5px;
+        }
+
+        .product-card img {
+            max-width: 200px;
+            height: auto;
+        }
+
+        .product-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .product-card .price {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .product-card .details-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .product-card .add-to-cart-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 140px; /* Adjust button positioning to align with "View Details" */
+        }
+</style>
+
+<div class="product-card">
+    <img src="@Model.ImgLink" alt="Image">
     <ul>
-
-        <img src="@Model.ImgLink" alt="Image" style="max-width: 200px; height: auto;">
-
-
-        <li>Primary Color: @Model.PrimaryColor</li>      
+        <li>$@Model.Price</li>
     </ul>
-    <form asp-controller="Home" asp-action="LegoSingle" method="get">
+    <form asp-controller="Home" asp-action="LegoSingle" method="get" class="details-btn">
         <input type="hidden" name="productId" value="@Model.ProductId" />
-        <button type="submit" class="btn-outline-success btn-md float-end ">View Details </button>
+        <button type="submit" class="btn btn-success btn-sm">View Details</button>
     </form>
-    <br />
-    <form id="@Model.ProductId" method="post" asp-page="/Cart">
+    <form id="@Model.ProductId" method="post" asp-page="/Cart" class="add-to-cart-btn">
         <input type="hidden" asp-for="ProductId" />
         <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-        <button type="submit" class="btn-outline-success btn-md float-end ">Buy</button>
+        <button type="submit" class="btn btn-success btn-sm">Add to Cart</button>
     </form>
-
 </div>
+
+

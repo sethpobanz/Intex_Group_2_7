@@ -12,5 +12,6 @@
     @foreach (string pt in Model ?? Enumerable.Empty<string>())
     {
         <a class="btn @(pt == ViewBag.SelectedBookType ? "btn-primary" : "btn-outline-secondary")" asp-controller="Home" asp-action="LegoList" asp-route-legoType="@pt" asp-route-pageNum="1">@pt</a>
+
     }
 </div>

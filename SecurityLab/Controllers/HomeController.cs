@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using SecurityLab.Models;
 using SecurityLab.Models.ViewModels;
 using System.Diagnostics;
@@ -9,19 +10,29 @@ namespace SecurityLab.Controllers
     public class HomeController : Controller
     {
         private IProductInterface _repo;
+        private IUserRecInterface _recRepo;
 
-        public HomeController(IProductInterface repo)
+        public HomeController(IProductInterface repo, IUserRecInterface recRepo)
         {
             _repo = repo;
+            _recRepo = recRepo;
         }
 
         public IActionResult Index()
         {
+            // Get all UserPipelines from _recRepo
+            var userPipelines = _recRepo.UserPipelines.ToList();
 
-            return View();
+            // Extract the list of ProductIds from UserPipelines
+            var productIds = userPipelines.Select(p => p.ProductId).ToList();
+
+            // Filter products from _repo that match the ProductIds in userPipelines
+            var rec = _repo.Products.Where(p => productIds.Contains(p.ProductId)).ToList();
+
+            return View(rec);
         }
 
-        public IActionResult LegoList(string? legoType, int pageNum = 1)
+        public IActionResult LegoList(string? legoType, string? legoColor, int pageNum = 1)
         {
             int defaultPageSize = 5;  // Default page size
             int pageSize = defaultPageSize;
@@ -38,7 +49,10 @@ namespace SecurityLab.Controllers
             var blah = new ProductsListViewModel
             {
                 Products = _repo.Products
-                    .Where(x => x.Category1 == legoType || legoType == null)
+                    .Where(x =>
+                        (legoType == null || x.Category1 == legoType || x.Category2 == legoType || x.Category3 == legoType) &&
+                        (legoColor == null || x.PrimaryColor == legoColor || x.SecondaryColor == legoColor)
+                    )
                     .OrderBy(x => x.Name)
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize),
@@ -46,13 +60,17 @@ namespace SecurityLab.Controllers
                 {
                     currentPage = pageNum,
                     itemsPerPage = pageSize,
-                    totalItems = legoType == null ? _repo.Products.Count() : _repo.Products.Where(x => x.Category1 == legoType).Count()
+                    totalItems = _repo.Products.Count()
                 },
-                CurrentProductType = legoType
+                CurrentProductType = legoType,
+                CurrentColor = legoColor
             };
 
             return View(blah);
         }
+
+
+
 
 
 

@@ -52,6 +52,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IProductInterface, EFProductRepository>();
 builder.Services.AddScoped<IOrderRepository, EFOrderRepository>();
 builder.Services.AddScoped<IOrder2Repository, EFOrder2Repository>();
+builder.Services.AddScoped<IUserRecInterface, EFUserRecRepository>();
 
 builder.Services.AddRazorPages();
 builder.Services.AddRazorPages(options =>
@@ -124,6 +125,7 @@ app.UseAuthorization();
 app.MapControllerRoute("pagenumandtype", "{legoType}/Page{pageNum}", new { Controller = "Home", Action = "Index" });
 app.MapControllerRoute("page", "Page/{pageNum}", new { Controller = "Home", Action = "Index", pageNum = 1 });
 app.MapControllerRoute("bookType", "{legoType}", new { Controller = "Home", Action = "Index", pageNum = 1 });
+app.MapControllerRoute("color", "{legoColor}", new { Controller = "Home", Action = "Index", pageNum = 1 });
 app.MapControllerRoute("legoPagination", "Legos/Page{pageNum}", new { Controller = "Home", Action = "Index", pageNum = 1 });
 app.MapControllerRoute("orderPagination", "Orders/Page{pageNum}", new { Controller = "Admin", Action = "AdminOrdersView", pageNum = 1 });
 

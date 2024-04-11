@@ -6,7 +6,6 @@ namespace SecurityLab.Models;
 public partial class Order
 {
     public int TransactionId { get; set; }
-
     public ICollection<CartLine> Lines { get; set; }
     = new List<CartLine>();
 

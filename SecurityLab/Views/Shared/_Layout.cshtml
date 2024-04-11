@@ -3,18 +3,37 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy"
+          content="base-uri 'self';
+               default-src 'self';
+               img-src 'self' data: https://m.media-amazon.com https://www.lego.com https://images.brickset.com https://www.brickeconomy.com https://www.yourwebsite.com/lib/photos;
+               object-src 'none';
+               script-src 'self' 'unsafe-inline';
+               style-src 'self' 'unsafe-inline';
+               upgrade-insecure-requests;">
+
     <title>@ViewData["Title"] - BuildWell</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SecurityLab.styles.css" asp-append-version="true" />
     <link href="/lib/font-awesome/css/all.min.css" rel="stylesheet" />
     <link rel="icon" type="image/x-icon" href="~/lego.ico" />
+
+    <style>
+        footer.footer {
+            background-color: #4527A0; /* Dark purpleish blue */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFD502;">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BrickWell</a>
+                <img src="~/lib/photos/lego_logo.svg.png" style="width: 50px; height: auto; margin-left: 2px; margin-right: 3px;" />
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -44,17 +63,19 @@
         </nav>
     </header>
     <div class="container">
+        <partial name="_CookieConsentPartial" />
 
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
 
     </div>
+    <br />
+    <br />
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            <partial name="_CookieConsentPartial" />
-            &copy; 2024 - BrickWell Inc - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <p>&copy; 2024 - BrickWell Inc - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></p>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
