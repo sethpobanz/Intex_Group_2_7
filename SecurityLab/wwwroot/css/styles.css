@@ -45,3 +45,27 @@
         box-shadow: #000 0px 0px 700px inset;
         color: #fff;
     }
+
+.filters {
+    grid-area: menu;
+}
+
+.main {
+
+    grid-area: main;
+}
+
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+        'menu main main main main main ';
+    gap: 10px;
+    padding: 10px;
+}
+
+    .grid-container > div {
+
+        padding: 20px 0;
+
+    }
