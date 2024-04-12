@@ -9,15 +9,34 @@
         background-color: rgba(0, 0, 0, 0.1); /* Adjust the alpha (4th value) for opacity */
         transition: background-color 0.3s ease; /* Smooth transition effect */
     }
+
+    .row.justify-content-center {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .text-center {
+        padding: 0 !important;
+    }
+
+    .full-width {
+        width: 100vw !important;
+        height: auto !important;
+        padding: 0 !important;
+        
+    }
+
+    img {
+        padding: 0 !important;
+    }
 </style>
 
 @model List<Product>
-<br />
-<br />
+
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-9 text-center">
-            <img src="~/lib/photos/man_with_legos.png" class="img-fluid" alt="Man with Legos" />
+        <div class="text-center">
+            <img src="~/lib/photos/buildingWithLegos.png" class="img-fluid full-width" alt="Family with Legos" />
         </div>
     </div>
     <br />
