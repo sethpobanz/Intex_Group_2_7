@@ -66,7 +66,7 @@
             @foreach (Product b in Model.Products)@*  for loop to display every product that matches the parameters *@
             {
                 <partial name="ProjectSummary" model="b" />
-
+                <br />
 
             }
             <div page-model="@Model.PaginationInfo" page-action="LegoList" page-class-enabled="true" page-class="btn"
