@@ -155,6 +155,18 @@ namespace SecurityLab.Controllers
         }
 
         [HttpGet]
+        public IActionResult UserCustom()
+        {
+            return View();
+        }
+
+        
+
+
+
+
+
+        [HttpGet]
         public IActionResult UserProfile()
         {
             return View();
