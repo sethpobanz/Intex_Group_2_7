@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using SecurityLab.Models;
 using SecurityLab.Models.ViewModels;
 using System.Diagnostics;
@@ -11,11 +13,15 @@ namespace SecurityLab.Controllers
     {
         private IProductInterface _repo;
         private IUserRecInterface _recRepo;
+        private ICustomerRepository _customerRepo;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public HomeController(IProductInterface repo, IUserRecInterface recRepo)
+        public HomeController(UserManager<IdentityUser> userManager, IProductInterface repo, IUserRecInterface recRepo, ICustomerRepository customerRepo)
         {
             _repo = repo;
             _recRepo = recRepo;
+            _customerRepo = customerRepo;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -69,13 +75,57 @@ namespace SecurityLab.Controllers
             return View(blah);
         }
 
-
+        [HttpGet]
         public IActionResult UserProfile()
         {
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> UserProfile(Customer customer)
+        {
+            if (ModelState.IsValid)
+            {
+                // Get the current user's ID
+                var currentUser = await _userManager.GetUserAsync(User);
+                if (currentUser != null)
+                {
+                    var existingCustomer = await _customerRepo.Customers.FirstOrDefaultAsync(c => c.UserId == currentUser.Id);
+                    if (existingCustomer != null)
+                    {
+                        // Update existing Customer record
+                        existingCustomer.FirstName = customer.FirstName;
+                        // ... (update other properties)
 
+                        _customerRepo.Update(existingCustomer);
+                    }
+                    else { 
+                    // Create a new Customer record
+                    var maxCustomerId = await _customerRepo.Customers.MaxAsync(c => (int?)c.CustomerId) ?? 0;
+                    var newCustomer = new Customer
+                    {
+                        CustomerId = maxCustomerId + 1, // Set the CustomerId
+                        UserId = currentUser.Id,
+                        FirstName = customer.FirstName,
+                        LastName = customer.LastName,
+                        Gender = customer.Gender,
+                        CountryOfResidence = customer.CountryOfResidence
+                    };
+
+                    _customerRepo.Add(newCustomer);
+                }
+
+                _customerRepo.SaveChanges();
+                return RedirectToAction("Success");
+                }
+            }
+            return View(customer);
+        }
+
+        public IActionResult Success() 
+        { 
+            return View(); 
+        }
 
         [Authorize(Roles = "Admin")]
         public IActionResult AdminPortal()
