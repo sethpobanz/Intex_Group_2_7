@@ -57,12 +57,12 @@
     </ul>
     <form asp-controller="Home" asp-action="LegoSingle" method="get" class="details-btn">
         <input type="hidden" name="productId" value="@Model.ProductId" />
-        <button type="submit" class="btn btn-success btn-sm">View Details</button>
+        <button type="submit" class="button">View Details</button>
     </form>
     <form id="@Model.ProductId" method="post" asp-page="/Cart" class="add-to-cart-btn">
         <input type="hidden" asp-for="ProductId" />
         <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-        <button type="submit" class="btn btn-success btn-sm">Add to Cart</button>
+        <button type="submit" class="button">Add to Cart</button>
     </form>
 </div>
 
