@@ -30,7 +30,7 @@ namespace SecurityLab.Controllers
         [HttpPost]
         public async Task<IActionResult> Checkout(Order order)
         {
-            if (cart.Lines.Count() == 0)
+            if (cart.Lines.Count() == 0) //handling empty carts
             {
                 ModelState.AddModelError("",
                     "Sorry, your cart is empty!");
