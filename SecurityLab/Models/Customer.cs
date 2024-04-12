@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace SecurityLab.Models;
 
@@ -19,7 +18,7 @@ public partial class Customer
     public string? Gender { get; set; }
 
     public double Age { get; set; }
-    
+
     public string? UserId { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
