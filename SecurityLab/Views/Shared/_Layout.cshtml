@@ -30,6 +30,30 @@
 </head>
 <body>
     <header>
+        <style>
+            /* CSS for underline animation on hover */
+            .nav-link {
+                position: relative;
+                text-decoration: none;
+                color: #000; /* Adjust the text color as needed */
+            }
+
+                .nav-link::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 0;
+                    height: 2px; /* Adjust the thickness of the underline */
+                    background-color: #000; /* Adjust the underline color */
+                    transition: width 0.3s ease; /* Animation transition */
+                }
+
+                .nav-link:hover::after {
+                    width: 100%;
+                }
+        </style>
+
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFD502;">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BrickWell</a>
@@ -55,16 +79,16 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="AdminIndex">Admin Portal</a>
                             </li>
                         }
-
                     </ul>
                     <div class="col-6 navbar-text text-end">
-                        <vc:cart-summary />
+                        <!-- Place your cart summary here -->
                     </div>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
         <partial name="_CookieConsentPartial" />
 
@@ -74,7 +98,7 @@
 
     </div>
     <br />
-    <br />
+
 
     <footer class="border-top footer text-muted">
         <div class="container">

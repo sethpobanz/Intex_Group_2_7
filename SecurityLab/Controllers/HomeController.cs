@@ -88,6 +88,12 @@ namespace SecurityLab.Controllers
                     if (rec5Product != null)
                         recommendedProducts.Add(rec5Product);
                 }
+                if (recommendations.Rec6 != null)
+                {
+                    var rec6Product = _repo.Products.FirstOrDefault(p => p.ProductId == recommendations.Rec6);
+                    if (rec6Product != null)
+                        recommendedProducts.Add(rec6Product);
+                }
 
                 // Create a view model to pass both product details and recommendations to the view
                 var viewModel = new LegoSingleViewModel
