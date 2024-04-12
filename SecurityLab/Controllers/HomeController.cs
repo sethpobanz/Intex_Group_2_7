@@ -28,16 +28,33 @@ namespace SecurityLab.Controllers
 
         public IActionResult Index()
         {
-            // Get all UserPipelines from _recRepo
-            var userPipelines = _recRepo.UserPipelines.ToList();
+            if (User.Identity.IsAuthenticated)
+            {
+                // User is logged in, redirect to a different action or view
+                return View();
+            }
+            else
+            {
+                // User is not logged in, proceed with original logic
 
-            // Extract the list of ProductIds from UserPipelines
-            var productIds = userPipelines.Select(p => p.ProductId).ToList();
+                // Get all UserPipelines from _recRepo
+                var userPipelines = _recRepo.UserPipelines.ToList();
 
-            // Filter products from _repo that match the ProductIds in userPipelines
-            var rec = _repo.Products.Where(p => productIds.Contains(p.ProductId)).ToList();
+                // Extract the list of ProductIds from UserPipelines
+                var productIds = userPipelines.Select(p => p.ProductId).ToList();
 
-            return View(rec);
+                // Filter products from _repo that match the ProductIds in userPipelines
+                var rec = _repo.Products.Where(p => productIds.Contains(p.ProductId)).ToList();
+
+                return View(rec);
+            }
+        }
+
+        [Authorize] // Attribute to ensure the user is authenticated
+        public IActionResult LoggedInIndex()
+        {
+            // Return a different view or perform a different action for logged-in users
+            return View();
         }
 
 
@@ -153,6 +170,149 @@ namespace SecurityLab.Controllers
 
             return View(blah);
         }
+
+        [HttpGet]
+        public IActionResult UserCustom()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult UserCustom(int age, string gender, string country)
+        {
+            int clusterID = 0; // Initialize the cluster ID variable
+
+            // Determine the cluster ID based on the provided conditions
+            if (country == "United Kingdom")
+            {
+                if (gender == "M")
+                {
+                    if (age > 20)
+                        clusterID = 1;
+                    else if (age >= 20 && age < 35)
+                        clusterID = 2;
+                    else if (age >= 35 && age < 55)
+                        clusterID = 3;
+                    else
+                        clusterID = 4;
+                }
+                else if (gender == "F")
+                {
+                    if (age > 20)
+                        clusterID = 5;
+                    else if (age >= 20 && age < 35)
+                        clusterID = 6;
+                    else if (age >= 35 && age < 55)
+                        clusterID = 7;
+                    else
+                        clusterID = 8;
+                }
+            }
+            else if (country == "USA")
+            {
+                if (gender == "M")
+                {
+                    if (age > 20)
+                        clusterID = 9;
+                    else if (age >= 20 && age < 35)
+                        clusterID = 10;
+                    else if (age >= 35 && age < 55)
+                        clusterID = 11;
+                    else
+                        clusterID = 12;
+                }
+                else if (gender == "F")
+                {
+                    if (age > 20)
+                        clusterID = 13;
+                    else if (age >= 20 && age < 35)
+                        clusterID = 14;
+                    else if (age >= 35 && age < 55)
+                        clusterID = 15;
+                    else
+                        clusterID = 16;
+                }
+            }
+            else if (country == "India")
+            {
+                if (gender == "M")
+                {
+                    if (age > 20)
+                        clusterID = 17;
+                    else if (age >= 20 && age < 35)
+                        clusterID = 18;
+                    else if (age >= 35 && age < 55)
+                        clusterID = 19;
+                    else
+                        clusterID = 20;
+                }
+                else if (gender == "F")
+                {
+                    if (age > 20)
+                        clusterID = 21;
+                    else if (age >= 20 && age < 35)
+                        clusterID = 22;
+                    else if (age >= 35 && age < 55)
+                        clusterID = 23;
+                    else
+                        clusterID = 24;
+                }
+            }
+            else if (country == "Russia")
+            {
+                if (gender == "M")
+                {
+                    if (age > 20)
+                        clusterID = 25;
+                    else if (age >= 20 && age < 35)
+                        clusterID = 26;
+                    else if (age >= 35 && age < 55)
+                        clusterID = 27;
+                    else
+                        clusterID = 28;
+                }
+                else if (gender == "F")
+                {
+                    if (age > 20)
+                        clusterID = 29;
+                    else if (age >= 20 && age < 35)
+                        clusterID = 30;
+                    else if (age >= 35 && age < 55)
+                        clusterID = 31;
+                    else
+                        clusterID = 32;
+                }
+            }
+            else // Default case for other countries
+            {
+                if (gender == "M")
+                {
+                    if (age > 20)
+                        clusterID = 33;
+                    else if (age >= 20 && age < 35)
+                        clusterID = 34;
+                    else if (age >= 35 && age < 55)
+                        clusterID = 35;
+                    else
+                        clusterID = 36;
+                }
+                else if (gender == "F")
+                {
+                    if (age > 20)
+                        clusterID = 37;
+                    else if (age >= 20 && age < 35)
+                        clusterID = 38;
+                    else if (age >= 35 && age < 55)
+                        clusterID = 39;
+                    else
+                        clusterID = 40;
+                }
+            }
+
+  
+            return RedirectToAction("Index");
+        }
+
+
 
         [HttpGet]
         public IActionResult UserProfile()

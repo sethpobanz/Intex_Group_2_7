@@ -13,15 +13,46 @@
         <option value="20">20</option>
     </select>
 </form>
-<div class="row m-1 p-1">
-    <div class="col-3">
-        <h4>Filter by Category</h4>
-        <vc:project-types />
-    </div>
-    <div class="col-3">
-        <h4>Filter by Color</h4>
-        <vc:color-filter />
-    </div>
+<form method="GET" action="/Home/LegoList">
+    <label for="legoTypeSelect">Choose Lego Type:</label>
+    <select id="legoTypeSelect" name="legoType">
+        <option value="">All</option>
+        <option value="Star Wars">Star Wars</option>
+        <option value="DC">DC</option>
+        <option value="Harry Potter">Harry Potter</option>
+        <option value="Personal">Personal</option>
+        <option value="Car">Car</option>
+        <option value="Flight">Flight</option>
+        <option value="Vehicle">Vehicle</option>
+        <option value="Game">Game</option>
+        <option value="Minifig">Minifig</option>
+        <option value="Promotional">Promotional</option>
+        <option value="Part">Part</option>
+        <option value="Energy">Energy</option>
+        <option value="Character">Character</option>
+        <option value="Floral">Floral</option>
+        <option value="Colorful">Colorful</option>
+        <option value="Animal">Animal</option>
+        <option value="Structure">Structure</option>
+    </select>
+    <br><br>
+    <label for="legoColorSelect">Choose Lego Color:</label>
+    <select id="legoColorSelect" name="legoColor">
+        <option value="">All</option>
+        <option value="Black">Black</option>
+        <option value="Blue">Blue</option>
+        <option value="Brown">Brown</option>
+        <option value="Green">Green</option>
+        <option value="Grey">Grey</option>
+        <option value="Orange">Orange</option>
+        <option value="Red">Red</option>
+        <option value="Tan">Tan</option>
+        <option value="White">White</option>
+        <option value="Yellow">Yellow</option>
+    </select>
+    <br><br>
+    <input type="submit" value="Apply Filter">
+</form>
     <div class="container col-9">
     <div class="container col-7">
         <main role="main" class="pb-3">
