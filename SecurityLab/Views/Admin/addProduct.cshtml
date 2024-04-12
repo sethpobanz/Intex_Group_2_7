@@ -29,6 +29,8 @@
     <div class="form-group">
         <label asp-for="ImgLink" class="control-label">Image Link:</label>
         <input asp-for="ImgLink" class="form-control" required>
+        <p>Note: For enhanced security, only links from approved websites will work (ie: m.media-amazon.com www.lego.com, images.brickset.com, and www.brickeconomy.com)</p>
+
     </div>
 
     <div class="form-group">
@@ -60,6 +62,9 @@
         <label asp-for="Category3" class="control-label">Category 3:</label>
         <input asp-for="Category3" class="form-control">
     </div>
-
+    <br />
     <button type="submit" class="btn btn-primary">Submit</button>
+    <a class="btn btn-outline-secondary" asp-controller="Admin" asp-action="AdminProducts">Back</a>
 </form>
+<br />
+<br />

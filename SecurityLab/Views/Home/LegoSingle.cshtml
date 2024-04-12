@@ -31,6 +31,8 @@
 
 <div class="product-details-container">
     <h2>@Model.Product.Name</h2>
+    <br />
+    <br />
     <img src="@Model.Product.ImgLink" alt="Image">
     <br />
     <h4>$@Model.Product.Price</h4>
@@ -39,7 +41,10 @@
         <input type="hidden" asp-for="Product.ProductId" />
         <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
         <button type="submit" class="btn btn-outline-success btn-lg">Add to Cart</button>
+        <button class="btn btn-outline-secondary btn-lg" asp-area="" asp-controller="Home" asp-action="LegoList">Back</button>
+
     </form>
+    <br />
     <br />
     <details>
         <summary><b>Details</b></summary>
