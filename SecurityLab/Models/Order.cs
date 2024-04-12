@@ -7,7 +7,7 @@ public partial class Order
 {
     public int TransactionId { get; set; }
     public ICollection<CartLine> Lines { get; set; }
-    = new List<CartLine>();
+= new List<CartLine>();
 
     public int CustomerId { get; set; }
 

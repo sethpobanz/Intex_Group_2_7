@@ -17,6 +17,8 @@ public partial class PobanzTestDbContext : DbContext
 
     public virtual DbSet<Customer> Customers { get; set; }
 
+    public virtual DbSet<CustomerPipeline> CustomerPipelines { get; set; }
+
     public virtual DbSet<LineItem> LineItems { get; set; }
 
     public virtual DbSet<Order> Orders { get; set; }
@@ -37,7 +39,9 @@ public partial class PobanzTestDbContext : DbContext
         {
             entity.HasKey(e => e.CustomerId).HasName("customer_ID");
 
-            entity.Property(e => e.CustomerId).HasColumnName("customer_ID");
+            entity.Property(e => e.CustomerId)
+                .ValueGeneratedNever()
+                .HasColumnName("customer_ID");
             entity.Property(e => e.Age).HasColumnName("age");
             entity.Property(e => e.BirthDate).HasColumnName("birth_date");
             entity.Property(e => e.CountryOfResidence)
@@ -55,6 +59,23 @@ public partial class PobanzTestDbContext : DbContext
             entity.Property(e => e.UserId)
                 .HasMaxLength(50)
                 .HasColumnName("user_ID");
+        });
+
+        modelBuilder.Entity<CustomerPipeline>(entity =>
+        {
+            entity.HasKey(e => e.ClusterId);
+
+            entity.ToTable("Customer_Pipeline");
+
+            entity.Property(e => e.ClusterId)
+                .ValueGeneratedNever()
+                .HasColumnName("cluster_ID");
+            entity.Property(e => e.Purchase1).HasColumnName("purchase1");
+            entity.Property(e => e.Purchase2).HasColumnName("purchase2");
+            entity.Property(e => e.Purchase3).HasColumnName("purchase3");
+            entity.Property(e => e.Rating1).HasColumnName("rating1");
+            entity.Property(e => e.Rating2).HasColumnName("rating2");
+            entity.Property(e => e.Rating3).HasColumnName("rating3");
         });
 
         modelBuilder.Entity<LineItem>(entity =>
