@@ -1,0 +1,18 @@
+﻿body {
+}
+.admin-form-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 10rem;
+    min-width: 5rem;
+    text-align: center;
+    border: 1px solid #cccccc;
+    border-radius: 1rem;
+    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.1);
+    padding: 2rem 2rem 2rem 2rem;
+}
+
+.spacing{
+    margin-bottom:1rem;
+}

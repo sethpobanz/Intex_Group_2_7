@@ -13,7 +13,7 @@ public partial class Order
 
     public DateOnly Date { get; set; }
 
-    public string DayOfWeek { get; set; } = null!;
+    public string? DayOfWeek { get; set; }
 
     public byte Time { get; set; }
 

@@ -67,11 +67,6 @@ namespace SecurityLab.Controllers
                         // Set other customer properties as needed
                     };
 
-                    // Assuming `cart.Lines` is a collection of items in the cart
-                    short totalAmount = (short)cart.Lines.Sum(line => line.Quantity * line.Product.Price);
-
-                    order.Amount = totalAmount;
-
                     _context.Customers.Add(newCustomer);
                     await _context.SaveChangesAsync();
 
@@ -79,6 +74,11 @@ namespace SecurityLab.Controllers
                     order.Customer = newCustomer;
                     order.CustomerId = newCustomer.CustomerId;
                 }
+                order.DayOfWeek = DateTime.Today.DayOfWeek.ToString();
+                // Assuming `cart.Lines` is a collection of items in the cart
+                short totalAmount = (short)cart.Lines.Sum(line => line.Quantity * line.Product.Price);
+
+                order.Amount = totalAmount;
 
                 repository.SaveOrder(order);
                 cart.Clear();
