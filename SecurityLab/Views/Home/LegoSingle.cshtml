@@ -40,10 +40,11 @@
     <form id="@Model.Product.ProductId" method="post" asp-page="/Cart">
         <input type="hidden" asp-for="Product.ProductId" />
         <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-        <button type="submit" class="btn btn-outline-success btn-lg">Add to Cart</button>
         <button class="btn btn-outline-secondary btn-lg" asp-area="" asp-controller="Home" asp-action="LegoList">Back</button>
 
     </form>
+
+
     <br />
     <br />
     <details>

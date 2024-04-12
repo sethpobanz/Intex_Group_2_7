@@ -1,10 +1,13 @@
 ﻿
 @model ProductsListViewModel
+<head>
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+</head>
 <h1>Legos, get'em while they're hot</h1>
 
 
 <br />
-
+<div class="spacing">
 <form method="get">
     <label asp-for="PaginationInfo.itemsPerPage" for="itemsPerPage">Items per page:</label>
     <select asp-for="PaginationInfo.itemsPerPage" id="itemsPerPage" onchange="this.form.submit()">
@@ -13,6 +16,8 @@
         <option value="20">20</option>
     </select>
 </form>
+</div>
+<div class="admin-form-container">
 <form method="GET" action="/Home/LegoList">
     <label for="legoTypeSelect">Choose Lego Type:</label>
     <select id="legoTypeSelect" name="legoType">
@@ -53,6 +58,8 @@
     <br><br>
     <input type="submit" value="Apply Filter">
 </form>
+</div>
+
     <div class="container col-9">
     <div class="container col-7">
         <main role="main" class="pb-3">
