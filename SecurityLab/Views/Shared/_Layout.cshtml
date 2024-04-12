@@ -9,7 +9,7 @@
         default-src 'self';
         img-src 'self' data: https://m.media-amazon.com https://www.lego.com https://images.brickset.com https://www.brickeconomy.com https://www.yourwebsite.com/lib/photos;
         object-src 'none';
-        script-src 'self' https://www.chatbase.co;
+        script-src 'self' https://www.chatbase.co 'unsafe-inline';
         style-src 'self' 'unsafe-inline';
         upgrade-insecure-requests;
         frame-src 'self' https://www.chatbase.co;
@@ -119,7 +119,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script>
+    <script> /* added chatbot to test it out */
         window.embeddedChatbotConfig = {
             chatbotId: "p13zwKv0I3CKkRH_5v66h",
             domain: "www.chatbase.co"

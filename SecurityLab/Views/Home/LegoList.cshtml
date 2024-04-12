@@ -7,8 +7,8 @@
 
 
 <br />
-<div class="spacing">
-<form method="get">
+<div class="spacing">@*  provide spacing around forms *@
+<form method="get">   @* form to seelct number of products displayed in each page *@
     <label asp-for="PaginationInfo.itemsPerPage" for="itemsPerPage">Items per page:</label>
     <select asp-for="PaginationInfo.itemsPerPage" id="itemsPerPage" onchange="this.form.submit()">
         <option value="5" selected>5</option>
@@ -17,7 +17,7 @@
     </select>
 </form>
 </div>
-<div class="admin-form-container">
+<div class="admin-form-container"> @* form to select what category we want  *@
 <form method="GET" action="/Home/LegoList">
     <label for="legoTypeSelect">Choose Lego Type:</label>
     <select id="legoTypeSelect" name="legoType">
@@ -41,7 +41,7 @@
         <option value="Structure">Structure</option>
     </select>
     <br><br>
-    <label for="legoColorSelect">Choose Lego Color:</label>
+    <label for="legoColorSelect">Choose Lego Color:</label> @* form to select what colors we want to be displayed *@
     <select id="legoColorSelect" name="legoColor">
         <option value="">All</option>
         <option value="Black">Black</option>
@@ -56,14 +56,14 @@
         <option value="Yellow">Yellow</option>
     </select>
     <br><br>
-    <input class="btn btn-primary" type="submit" value="Apply Filter">
+    <input class="btn btn-primary" type="submit" value="Apply Filter">@*  page does not reload nor apply filters until the form is submitted. This was added to precent accidental clicks and to filter by both color and category *@
 </form>
 </div>
 
     <div class="container col-9">
     <div class="container col-7">
         <main role="main" class="pb-3">
-            @foreach (Product b in Model.Products)
+            @foreach (Product b in Model.Products)@*  for loop to display every product that matches the parameters *@
             {
                 <partial name="ProjectSummary" model="b" />
 
