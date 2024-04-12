@@ -30,8 +30,8 @@ namespace SecurityLab.Models
 
                     // Set the Date property to the current date
                     order.Date = DateOnly.FromDateTime(DateTime.Today);
-                    order.DayOfWeek = order.Date.ToDateTime(TimeOnly.MinValue).DayOfWeek.ToString();
-
+                    order.DayOfWeek = DateTime.Today.DayOfWeek.ToString();
+    
                     // Check if the Customer exists
                     var customer = context.Customers.Find(order.CustomerId);
 
