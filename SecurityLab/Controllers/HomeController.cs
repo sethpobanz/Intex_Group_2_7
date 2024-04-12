@@ -131,6 +131,7 @@ namespace SecurityLab.Controllers
                 }
             }
 
+            // This is querying products based on the filters that the users choose or do not choose... pagination is included in this regard
             var blah = new ProductsListViewModel
             {
                 Products = _repo.Products
@@ -154,13 +155,14 @@ namespace SecurityLab.Controllers
             return View(blah);
         }
 
-
+        // returns user profile pop up to gather info
         [HttpGet]
         public IActionResult UserProfile()
         {
             return View();
         }
 
+        // gather info about the customer based on the form and use that info given to help find recommendations for them later on
         [HttpPost]
         public async Task<IActionResult> UserProfile(Customer customer)
         {
@@ -184,7 +186,7 @@ namespace SecurityLab.Controllers
                     var maxCustomerId = await _customerRepo.Customers.MaxAsync(c => (int?)c.CustomerId) ?? 0;
                     var newCustomer = new Customer
                     {
-                        CustomerId = maxCustomerId + 1, // Set the CustomerId
+                        CustomerId = maxCustomerId + 1, // manually set the CustomerId
                         UserId = currentUser.Id,
                         FirstName = customer.FirstName,
                         LastName = customer.LastName,
@@ -202,28 +204,30 @@ namespace SecurityLab.Controllers
             return View(customer);
         }
 
+        // success page
         public IActionResult Success() 
         { 
             return View(); 
         }
 
+        // admin portal only is accessible to admin roles
         [Authorize(Roles = "Admin")]
         public IActionResult AdminPortal()
         {
             return View();
         }
+
+        // show the privacy page
         public IActionResult Privacy()
         {
             return View();
         }
 
+        // show the about page
         public IActionResult About()
         {
             return View();
         }
-
-    
-
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
