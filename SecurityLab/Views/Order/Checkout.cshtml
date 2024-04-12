@@ -9,6 +9,7 @@
 <form asp-action="Checkout" method="post">
     <h3>Ship to</h3>
     <input type="hidden" asp-for="Customer.UserId"/>
+    <input type="hidden" asp-for="DayOfWeek" />
     <div class="form-group">
         <label>First Name:</label>
         <input asp-for="Customer.FirstName" class="form-control" />
@@ -17,24 +18,9 @@
         <label>Last Name:</label>
         <input asp-for="Customer.LastName" class="form-control" />
     </div>
+    <h3>Shipping Address</h3>
     <div class="form-group">
-        <label> YOU A FRAUD? </label>
-        <select asp-for="Fraud" class="form-control">
-            <option value="true">True</option>
-            <option value="false">False</option>
-        </select>
-    </div>
-    <h3>Address</h3>
-    <div class="form-group">
-        <label>Line 1:</label>
-        <input class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Line 2:</label>
-        <input class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Line 3:</label>
+        <label>Street:</label>
         <input class="form-control" />
     </div>
     <div class="form-group">
@@ -53,7 +39,7 @@
         <label>Country:</label>
         <input asp-for="ShippingAddress" class="form-control" />
     </div>
-    <h3>Card Information</h3>
+    <h3>Billing Information</h3>
     <div class="form-group">
         <label>Country of Transaction:</label>
         <input asp-for="CountryOfTransaction" class="form-control" />
@@ -92,14 +78,6 @@
             <option value="Monzo">Monzo</option>
             <option value="RBS">RBS</option>
         </select>
-    </div>
-    <div class="form-group">
-        <label>Day of Week:</label>
-        <input asp-for="DayOfWeek" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Country of Residence:</label>
-        <input asp-for="Customer.CountryOfResidence" class="form-control" />
     </div>
     <br />
     <div class="text-center">

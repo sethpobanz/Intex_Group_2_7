@@ -17,8 +17,7 @@ namespace SecurityLab.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private IProductRecInterface _recProdRepo;
 
-        public HomeController(UserManager<IdentityUser> userManager, IProductInterface repo, IUserRecInterface recRepo, ICustomerRepository customerRepo)
-        public HomeController(IProductInterface repo, IUserRecInterface recRepo, IProductRecInterface recProdRepo)
+        public HomeController(UserManager<IdentityUser> userManager, IProductInterface repo, IUserRecInterface recRepo, IProductRecInterface recProdRepo, ICustomerRepository customerRepo)
         {
             _repo = repo;
             _recRepo = recRepo;
