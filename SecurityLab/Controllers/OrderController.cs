@@ -83,7 +83,7 @@ namespace SecurityLab.Controllers
                 repository.SaveOrder(order);
                 cart.Clear();
                 return RedirectToPage("/Completed",
-                    new { orderId = order.TransactionId });
+                    new { transactionId = order.TransactionId });
             }
             else
             {
