@@ -54,6 +54,7 @@ builder.Services.AddScoped<IOrderRepository, EFOrderRepository>();
 builder.Services.AddScoped<IOrder2Repository, EFOrder2Repository>();
 builder.Services.AddScoped<IUserRecInterface, EFUserRecRepository>();
 builder.Services.AddScoped<ICustomerRepository, EFCustomerRepository>();
+builder.Services.AddScoped<IProductRecInterface, EFProductRecRepository>();
 
 builder.Services.AddRazorPages();
 builder.Services.AddRazorPages(options =>

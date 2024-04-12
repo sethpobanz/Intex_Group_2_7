@@ -15,13 +15,16 @@ namespace SecurityLab.Controllers
         private IUserRecInterface _recRepo;
         private ICustomerRepository _customerRepo;
         private readonly UserManager<IdentityUser> _userManager;
+        private IProductRecInterface _recProdRepo;
 
         public HomeController(UserManager<IdentityUser> userManager, IProductInterface repo, IUserRecInterface recRepo, ICustomerRepository customerRepo)
+        public HomeController(IProductInterface repo, IUserRecInterface recRepo, IProductRecInterface recProdRepo)
         {
             _repo = repo;
             _recRepo = recRepo;
             _customerRepo = customerRepo;
             _userManager = userManager;
+            _recProdRepo = recProdRepo;
         }
 
         public IActionResult Index()
@@ -37,6 +40,83 @@ namespace SecurityLab.Controllers
 
             return View(rec);
         }
+
+
+        public IActionResult LegoSingle(int productId)
+        {
+            // Find the product by productId
+            var product = _repo.Products.FirstOrDefault(p => p.ProductId == productId);
+
+            if (product == null)
+            {
+                // Product not found, handle error or redirect to another page
+                return NotFound(); // Return a 404 Not Found error
+            }
+
+            // Find recommendations (Rec1 to Rec5) for the given productId
+            var recommendations = _recProdRepo.ProductPipelines.FirstOrDefault(p => p.ProductId == productId);
+
+            if (recommendations != null)
+            {
+                // Fetch products corresponding to each recommendation
+                var recommendedProducts = new List<Product>();
+
+                if (recommendations.Rec1 != null)
+                {
+                    var rec1Product = _repo.Products.FirstOrDefault(p => p.ProductId == recommendations.Rec1);
+                    if (rec1Product != null)
+                        recommendedProducts.Add(rec1Product);
+                }
+
+                if (recommendations.Rec2 != null)
+                {
+                    var rec2Product = _repo.Products.FirstOrDefault(p => p.ProductId == recommendations.Rec2);
+                    if (rec2Product != null)
+                        recommendedProducts.Add(rec2Product);
+                }
+
+                if (recommendations.Rec3 != null)
+                {
+                    var rec3Product = _repo.Products.FirstOrDefault(p => p.ProductId == recommendations.Rec3);
+                    if (rec3Product != null)
+                        recommendedProducts.Add(rec3Product);
+                }
+
+                if (recommendations.Rec4 != null)
+                {
+                    var rec4Product = _repo.Products.FirstOrDefault(p => p.ProductId == recommendations.Rec4);
+                    if (rec4Product != null)
+                        recommendedProducts.Add(rec4Product);
+                }
+
+                if (recommendations.Rec5 != null)
+                {
+                    var rec5Product = _repo.Products.FirstOrDefault(p => p.ProductId == recommendations.Rec5);
+                    if (rec5Product != null)
+                        recommendedProducts.Add(rec5Product);
+                }
+                if (recommendations.Rec6 != null)
+                {
+                    var rec6Product = _repo.Products.FirstOrDefault(p => p.ProductId == recommendations.Rec6);
+                    if (rec6Product != null)
+                        recommendedProducts.Add(rec6Product);
+                }
+
+                // Create a view model to pass both product details and recommendations to the view
+                var viewModel = new LegoSingleViewModel
+                {
+                    Product = product,
+                    Recommendations = recommendations,
+                    RecommendedProducts = recommendedProducts
+                };
+
+                return View(viewModel); // Pass the view model to the LegoSingle view
+            }
+
+            return View(new LegoSingleViewModel { Product = product, Recommendations = recommendations });
+        }
+
+
 
         public IActionResult LegoList(string? legoType, string? legoColor, int pageNum = 1)
         {
@@ -142,20 +222,7 @@ namespace SecurityLab.Controllers
             return View();
         }
 
-        public IActionResult LegoSingle(int productId)
-        {
-            // Find the product by productId
-            var product = _repo.Products.FirstOrDefault(p => p.ProductId == productId);
-
-            if (product == null)
-            {
-                // Product not found, handle error or redirect to another page
-                return NotFound(); // Return a 404 Not Found error
-            }
-
-            // Pass the product details to the view
-            return View(product); // Assuming you have a LegoSingle.cshtml view to display product details
-        }      
+    
 
 
 

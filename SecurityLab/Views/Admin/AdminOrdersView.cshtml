@@ -29,7 +29,7 @@
         @foreach (Order o in Model.Orders)
         {
             <tr>
-                <td>@o.CustomerId</td> <!-- indicate that subtable column is not required -->
+                <td>@o.CustomerId</td> 
                 <td>@o.Date</td>
                 <td>@o.Customer?.FirstName</td>
                 <td>@o.Customer?.LastName</td>
@@ -46,8 +46,8 @@
             <td>@movie.Notes</td> *@
 
                 <!--the fancy stuff that links the buttons to perform certain tasks - delete and edits-->
-                <td><a class="btn btn-edit" asp-controller="Home" asp-action="Edit" asp-route-id="@o.TransactionId">Edit</a></td>
-                <td><a class="btn btn-salmon" asp-controller="Home" asp-action="Delete" asp-route-id="@o.TransactionId">Delete</a></td>
+@*                 <td><a class="btn btn-edit" asp-controller="Home" asp-action="Edit" asp-route-id="@o.TransactionId">Edit</a></td>
+                <td><a class="btn btn-salmon" asp-controller="Home" asp-action="Delete" asp-route-id="@o.TransactionId">Delete</a></td> *@
             </tr>
         }
 
